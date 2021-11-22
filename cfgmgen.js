@@ -101,6 +101,8 @@ class ConfigMenu extends EventTarget{
     __edit(key, value){
         //Edits the object at the given key to be equal to the given value.
         this.__editAt(key.split('.'), value, this.__conf);
+        //Dispatch an 'onchange' event.
+        this.dispatchEvent(new Event('change'));
     }
 
     __editAt(key, value, ref){
@@ -111,6 +113,11 @@ class ConfigMenu extends EventTarget{
         else {
             this.__editAt(key.slice(1), value, ref[key[0]]); //Elegant, recursive def.
         }
+    }
+
+    //Couple of utility methods:
+    getObj(){
+        return this.__conf;
     }
 
 
