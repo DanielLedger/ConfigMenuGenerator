@@ -16,19 +16,25 @@ class ConfigMenu extends EventTarget{
     }
 
 
-    __getOption(elemFor, name){
+    __getOption(elemFor, name, inherit = true){
         //Gets the option for 'elemFor' addressed by 'name'
         //Note that elemFor should be a full key.
         var splitK = elemFor.split('.');
         var currentVal = undefined;
+        var currentKey;
+        if (!inherit){
+            currentKey = splitK.join("_") + "_options";
+            return (this.__opt[currentKey] || {})[name]; 
+        }
         for (var i = splitK.length;i >= 0;i--){
             currentKey = splitK.slice(0, i).join("_") + "_options";
+            console.debug(currentKey);
             currentVal = this.__opt[currentKey];
-            if (currentVal != undefined){
-                break;
+            if (currentVal != undefined && currentVal[name] != undefined){
+                return currentVal[name];
             }
         }
-        return currentVal;
+        return undefined;
 
     }
 
@@ -46,7 +52,7 @@ class ConfigMenu extends EventTarget{
                 //Create a submenu. Will have to nick some code from W3Schools to make this look nicer at some point.
                 var submenu = document.createElement('div');
                 var heading = document.createElement('h4');
-                heading.innerText = key;
+                heading.innerText = this.__getOption(fullPath, 'displayName', false) || key;
                 submenu.appendChild(heading);
                 this.__render(submenu, val, fullPath, options);
                 parent.appendChild(submenu);
@@ -55,7 +61,7 @@ class ConfigMenu extends EventTarget{
             var inp = document.createElement('input');
             var lbl = document.createElement('label');
             //TODO: Deal with options we get given to handle stuff like names.
-            lbl.innerText = key;
+            lbl.innerText = this.__getOption(fullPath, 'displayName', false) || key;
             lbl.id = `lbl-${fullPath}`;
 
             inp.id = `in-${fullPath}`;
