@@ -12,10 +12,10 @@ class ConfigMenu extends EventTarget{
 
     display (parent){
         //Displays in 'parent' which should obviously be an html element of some kind.
-        this.__render(parent, this.__conf, "");
+        this.__render(parent, this.__conf, "", this.__opt);
     }
 
-    __render(parent, obj, rootKey){
+    __render(parent, obj, rootKey, options){
         //Renders a given object's config. Currently very basic.
         for (var key in obj){
             var val = obj[key];
@@ -25,7 +25,16 @@ class ConfigMenu extends EventTarget{
                 fullPath = rootKey + ".";
             }
             fullPath += key;
-            //TODO: Handle objects recursively.
+            if (typeof (val) === 'object'){
+                //Create a submenu. Will have to nick some code from W3Schools to make this look nicer at some point.
+                var submenu = document.createElement('div');
+                var heading = document.createElement('h4');
+                heading.innerText = key;
+                submenu.appendChild(heading);
+                this.__render(submenu, val, fullPath, options);
+                parent.appendChild(submenu);
+                continue;
+            }
             var inp = document.createElement('input');
             var lbl = document.createElement('label');
             //TODO: Deal with options we get given to handle stuff like names.
@@ -79,7 +88,7 @@ class ConfigMenu extends EventTarget{
                 default:
                     console.warn('Uncaught value got through.');
                     console.warn(val);
-                    break;
+                    continue;
             }
             //Add these objects to the parents, followed by a linebreak.
             parent.appendChild(lbl);
