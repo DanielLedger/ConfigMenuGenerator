@@ -51,16 +51,64 @@ class ConfigMenu extends EventTarget{
             if (typeof (val) === 'object'){
                 //Create a submenu. Will have to nick some code from W3Schools to make this look nicer at some point.
                 var submenu = document.createElement('div');
+
+                var classes = this.__getOption(fullPath, 'classes') || []; //Add some classes.
+                if (typeof(classes) === 'string'){
+                    submenu.className = classes;
+                }
+                else {
+                    //Classes is a list of strings.
+                    for (var c of classes){
+                        submenu.classList.add(c);
+                    }
+                }
+
                 var heading = document.createElement('h4');
                 heading.innerText = this.__getOption(fullPath, 'displayName', false) || key;
+
+                var lblClasses = this.__getOption(fullPath, 'labelClasses') || []; //Add some label classes.
+                if (typeof(lblClasses) === 'string'){
+                    heading.className = lblClasses;
+                }
+                else {
+                    //Classes is a list of strings.
+                    for (var c of lblClasses){
+                        heading.classList.add(c);
+                    }
+                }
+
                 submenu.appendChild(heading);
                 this.__render(submenu, val, fullPath, options);
                 parent.appendChild(submenu);
                 continue;
             }
             var inp = document.createElement('input');
+
+            var classes = this.__getOption(fullPath, 'classes') || []; //Add some classes.
+            if (typeof(classes) === 'string'){
+                inp.className = classes;
+            }
+            else {
+                //Classes is a list of strings.
+                for (var c of classes){
+                    inp.classList.add(c);
+                }
+            }
+
             var lbl = document.createElement('label');
-            //TODO: Deal with options we get given to handle stuff like names.
+            
+            var lblClasses = this.__getOption(fullPath, 'labelClasses') || []; //Add some label classes.
+            console.debug(lblClasses);
+            if (typeof(lblClasses) === 'string'){
+                lbl.className = lblClasses;
+            }
+            else {
+                //Classes is a list of strings.
+                for (var c of lblClasses){
+                    lbl.classList.add(c);
+                }
+            }
+
             lbl.innerText = this.__getOption(fullPath, 'displayName', false) || key;
             lbl.id = `lbl-${fullPath}`;
 

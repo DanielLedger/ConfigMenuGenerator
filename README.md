@@ -50,4 +50,5 @@ Example:
 These work on all possible forms of input:
 
 - classes: The list of HTML classes inputs should have. Either a space-delimited string or an array of strings.
+- labelClasses: The list of HTML classes labels should have. Same as above.
 - displayName: The name to display when showing the option, instead of the key's name. Doesn't inherit (as that'd be dumb).
