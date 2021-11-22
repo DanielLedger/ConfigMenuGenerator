@@ -15,6 +15,23 @@ class ConfigMenu extends EventTarget{
         this.__render(parent, this.__conf, "", this.__opt);
     }
 
+
+    __getOption(elemFor, name){
+        //Gets the option for 'elemFor' addressed by 'name'
+        //Note that elemFor should be a full key.
+        var splitK = elemFor.split('.');
+        var currentVal = undefined;
+        for (var i = splitK.length;i >= 0;i--){
+            currentKey = splitK.slice(0, i).join("_") + "_options";
+            currentVal = this.__opt[currentKey];
+            if (currentVal != undefined){
+                break;
+            }
+        }
+        return currentVal;
+
+    }
+
     __render(parent, obj, rootKey, options){
         //Renders a given object's config. Currently very basic.
         for (var key in obj){
