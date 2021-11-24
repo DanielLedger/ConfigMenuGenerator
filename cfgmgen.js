@@ -27,7 +27,7 @@ class ConfigMenu extends EventTarget{
             return (this.__opt[currentKey] || {})[name]; 
         }
         for (var i = splitK.length;i >= 0;i--){
-            currentKey = splitK.slice(0, i).join("_") + "_options";
+            currentKey = splitK.slice(0, i).join("_") + (i == splitK.length ? "_options" : "_goptions");
             console.debug(currentKey);
             currentVal = this.__opt[currentKey];
             if (currentVal != undefined && currentVal[name] != undefined){

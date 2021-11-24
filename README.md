@@ -19,17 +19,17 @@ The options are fed in with another javascript object, and are structured as fol
 
 Each possible option in the other object has a key in the options object which is `<key>_options`.
 This works recursively also (so in the above example, options for 'b' would be at `a_b_options`).
-You can also specify global defaults using the key `_options`.
+You can also specify defaults for a section using the key `<section key>_goptions`.
 
 Note that it is inheriting (so d_options will override the global classes, in the below example).
 
 Example:
 `
     {
-        _options: {
+        _goptions: {
             classes: ['w3-input']
         },
-        a_options: {
+        a_goptions: {
             displayName: 'Option 1'
         },
         a_b_options: {
