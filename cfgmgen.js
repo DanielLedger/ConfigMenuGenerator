@@ -52,17 +52,6 @@ class ConfigMenu extends EventTarget{
                 //Create a submenu. Will have to nick some code from W3Schools to make this look nicer at some point.
                 var submenu = document.createElement('div');
 
-                var classes = this.__getOption(fullPath, 'classes') || []; //Add some classes.
-                if (typeof(classes) === 'string'){
-                    submenu.className = classes;
-                }
-                else {
-                    //Classes is a list of strings.
-                    for (var c of classes){
-                        submenu.classList.add(c);
-                    }
-                }
-
                 var heading = document.createElement('h4');
                 heading.innerText = this.__getOption(fullPath, 'displayName', false) || key;
 
@@ -78,8 +67,30 @@ class ConfigMenu extends EventTarget{
                 }
 
                 submenu.appendChild(heading);
-                this.__render(submenu, val, fullPath, options);
+
+                var submenuContainer = document.createElement("div");
+                submenuContainer.style.display = 'none';
+                submenu.appendChild(submenuContainer);
+
+                var classes = this.__getOption(fullPath, 'classes') || []; //Add some classes.
+                if (typeof(classes) === 'string'){
+                    submenuContainer.className = classes;
+                }
+                else {
+                    //Classes is a list of strings.
+                    for (var c of classes){
+                        submenuContainer.classList.add(c);
+                    }
+                }
+
+                this.__render(submenuContainer, val, fullPath, options);
                 parent.appendChild(submenu);
+
+                //Set up the accordian toggling.
+                heading.onclick = function() {
+                    accordianToggle(submenuContainer);
+                };
+
                 continue;
             }
             var inp = document.createElement('input');
@@ -190,6 +201,14 @@ class ConfigMenu extends EventTarget{
     getObj(){
         return this.__conf;
     }
-
-
 }
+
+//
+function accordianToggle(elem) {
+    if (elem.style.display === 'none') {
+        elem.style.display = 'block';
+    } 
+    else {
+        elem.style.display = 'none';
+    }
+  }
