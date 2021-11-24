@@ -47,8 +47,15 @@ Example:
 
 ### Global options.
 
-These work on all possible forms of input:
+These work on all possible forms of input, and also section containers:
 
 - classes: The list of HTML classes inputs should have. Either a space-delimited string or an array of strings.
 - labelClasses: The list of HTML classes labels should have. Same as above.
 - displayName: The name to display when showing the option, instead of the key's name. Doesn't inherit (as that'd be dumb).
+
+### String input options.
+
+These only work on inputs of type string:
+
+- options: What are the allowed options for a given input. Note that this is purely asthetic: a clever user can easily bypass
+           this, so it MUST be validated serverside as well. This automatically converts the input to a `select` field.
