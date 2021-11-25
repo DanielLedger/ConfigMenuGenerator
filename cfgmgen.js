@@ -169,8 +169,21 @@ class ConfigMenu extends EventTarget{
                     }
                     break;
                 case 'number':
-                    //Set the type of this input to be a number entry.
-                    inp.setAttribute('type', 'number');
+                    var exact = this.__getOption(fullPath, 'exact');
+                    if (exact || exact === undefined){
+                        //Set the type of this input to be a number entry.
+                        inp.setAttribute('type', 'number');
+                    }
+                    else {
+                        //Set the type to be a range.
+                        inp.setAttribute('type', 'range');
+                    }
+
+                    //Set min-max-step.
+                    inp.min = this.__getOption(fullPath, 'min');
+                    inp.max = this.__getOption(fullPath, 'max');
+                    inp.step = this.__getOption(fullPath, 'step');
+
                     //Set up the event listener.
                     var f = function (us, key, input){
                         input.onchange = (e) => {

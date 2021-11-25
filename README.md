@@ -58,7 +58,7 @@ These work on all possible forms of input, and also section containers:
 
 These work on all forms of input, but not section containers:
 
-- disabled: Should the control be read-only/disabled. Note that this is purely asthetic and can be trivially bypassed, so validate this
+- disabled: Should the control be read-only/disabled? Note that this is purely asthetic and can be trivially bypassed, so validate this
             serverside as well.
 
 ### String input options.
@@ -80,3 +80,12 @@ These only work on inputs of type string:
     - url
 
     Note that validation MUST always be done serverside as well, this is purely for asthetics.
+
+### Number input options.
+
+These options only work on inputs of type number:
+
+- exact: Should we use an exact input or a range slider? Note that if this is false (i.e. using a range slider) min and max must be specified.
+- min: The lowest value permitted. As always, validate this serverside since bypassing it is trivial.
+- max: The highest value permitted. As above, validate this.
+- step: The step permitted. As you may expect, this also must be validated serverside.
