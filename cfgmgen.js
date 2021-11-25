@@ -129,15 +129,39 @@ class ConfigMenu extends EventTarget{
             switch (typeof(val)){
                 case 'string':
                     //Set up the event listener.
-                    var f = function (us, key, input){ //Need to do this to take a local copy of all these variables because JS is dumb.
-                        input.onchange = (e) => {
-                            //Edit our backing object.
-                            us.__edit(key, input.value);
-                        };
+                    var opts = this.__getOption(fullPath, 'options', false)
+                    if (opts === undefined){
+                        //Free choice.
+                        var f = function (us, key, input){ //Need to do this to take a local copy of all these variables because JS is dumb.
+                            input.onchange = (e) => {
+                                //Edit our backing object.
+                                us.__edit(key, input.value);
+                            };
+                        }
+                        f(this, `${fullPath}`, inp);
+                        //Set the default value to what it is at the moment.
+                        inp.value = val;
                     }
-                    f(this, `${fullPath}`, inp);
-                    //Set the default value to what it is at the moment.
-                    inp.value = val;
+                    else {
+                        //<select> menu.
+                        var selMenu = document.createElement('select');
+                        selMenu.className = inp.className;
+                        selMenu.id = inp.id;
+                        for (var opt of opts){
+                            var optElem = document.createElement('option');
+                            optElem.innerText = opt;
+                            optElem.value = opt;
+                            selMenu.appendChild(optElem);
+                        }
+                        inp = selMenu;
+                        var f = function (us, key, input){
+                            input.onchange = (e) => {
+                                //Edit our backing object.
+                                us.__edit(key, input.value);
+                            };
+                        }
+                        f(this, `${fullPath}`, selMenu);
+                    }
                     break;
                 case 'number':
                     //Set the type of this input to be a number entry.
