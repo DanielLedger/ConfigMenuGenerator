@@ -40,7 +40,8 @@ Example:
             classes: ['w3-check']
         },
         c_options: {
-            displayName: 'Option 3'
+            displayName: 'Option 3',
+            disabled: true
         }
     }
 `
@@ -53,9 +54,16 @@ These work on all possible forms of input, and also section containers:
 - labelClasses: The list of HTML classes labels should have. Same as above.
 - displayName: The name to display when showing the option, instead of the key's name. Doesn't inherit (as that'd be dumb).
 
+### Global input options.
+
+These work on all forms of input, but not section containers:
+
+- disabled: Should the control be read-only/disabled. Note that this is purely asthetic and can be trivially bypassed, so validate this
+            serverside as well.
+
 ### String input options.
 
 These only work on inputs of type string:
 
 - options: What are the allowed options for a given input. Note that this is purely asthetic: a clever user can easily bypass
-           this, so it MUST be validated serverside as well. This automatically converts the input to a `select` field.
+           this, so it MUST be validated serverside as well. This automatically converts the input to a `select` field. Won't inherit.

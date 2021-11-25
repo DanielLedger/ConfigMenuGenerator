@@ -199,6 +199,9 @@ class ConfigMenu extends EventTarget{
                     console.warn(val);
                     continue;
             }
+            //If input is disabled, do that now.
+            inp.disabled = this.__getOption(fullPath, 'disabled') || false;
+
             //Add these objects to the parents, followed by a linebreak.
             parent.appendChild(lbl);
             parent.appendChild(inp);
