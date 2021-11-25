@@ -161,6 +161,9 @@ class ConfigMenu extends EventTarget{
                             };
                         }
                         f(this, `${fullPath}`, selMenu);
+                        if (opts.includes(val)){
+                            inp.value = val;
+                        }
                     }
                     break;
                 case 'number':
