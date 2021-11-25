@@ -141,6 +141,8 @@ class ConfigMenu extends EventTarget{
                         f(this, `${fullPath}`, inp);
                         //Set the default value to what it is at the moment.
                         inp.value = val;
+                        //Set the type based on what we were given.
+                        inp.setAttribute('type', this.__getOption(fullPath, 'type')||'text');
                     }
                     else {
                         //<select> menu.

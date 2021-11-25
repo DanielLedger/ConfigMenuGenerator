@@ -67,3 +67,16 @@ These only work on inputs of type string:
 
 - options: What are the allowed options for a given input. Note that this is purely asthetic: a clever user can easily bypass
            this, so it MUST be validated serverside as well. This automatically converts the input to a `select` field. Won't inherit.
+- type: If options is not defined, controls what type of input is expected. Can be anything from the following:
+    - color
+    - date
+    - datetime-local
+    - hidden
+    - email
+    - password
+    - search
+    - tel
+    - time
+    - url
+
+    Note that validation MUST always be done serverside as well, this is purely for asthetics.
