@@ -90,7 +90,7 @@ class ConfigMenu extends EventTarget{
                 parent.appendChild(submenu);
 
                 //Set up the accordian toggling.
-                heading.onclick = function() {
+                heading.onclick = () => {
                     accordianToggle(submenuContainer);
                 };
 
