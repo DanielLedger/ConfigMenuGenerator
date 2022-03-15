@@ -278,6 +278,35 @@ class ConfigMenu extends EventTarget{
         this.__oldObj = JSON.parse(JSON.stringify(this.__conf));
         return diff;
     }
+
+    update(newObj) {
+        //Takes an object and sets the form contents in our config menu to be from this. Same types are required, differing types are undefined.
+        this.__updateFrom("", newObj);
+        //Set the internal object to be correct.
+        this.__conf = JSON.parse(JSON.stringify(newObj));
+    }
+
+    __updateFrom(root, newObject){
+        for (var key of Object.keys(newObject)){
+            var val = newObject[key];
+
+            var fullPath = "";
+            if (root !== ''){
+                fullPath = rootKey + ".";
+            }
+            fullPath += key;
+
+            if (typeof(val) === 'object'){
+                //Some kind of object, so recurse down.
+                this.__updateFrom(fullPath, val);
+            }
+            else {
+                //Update the UI.
+                var inElem = document.getElementById(`in-${fullPath}`);
+                inElem.value = val;
+            }
+        }
+    }
 }
 
 //
