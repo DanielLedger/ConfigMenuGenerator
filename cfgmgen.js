@@ -292,7 +292,7 @@ class ConfigMenu extends EventTarget{
 
             var fullPath = "";
             if (root !== ''){
-                fullPath = rootKey + ".";
+                fullPath = root + ".";
             }
             fullPath += key;
 
@@ -302,8 +302,14 @@ class ConfigMenu extends EventTarget{
             }
             else {
                 //Update the UI.
+                console.debug(`in-${fullPath}`);
                 var inElem = document.getElementById(`in-${fullPath}`);
-                inElem.value = val;
+                if (inElem === null){
+                    console.warn(`Element of ID in-${fullPath} doesn't exist, skipping!`);
+                }
+                else {
+                    inElem.value = val;
+                }
             }
         }
     }
